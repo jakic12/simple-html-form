@@ -1,0 +1,377 @@
+body{
+  width:100vw;
+  height:100vh;
+  
+  margin:0;
+  padding:0;
+}
+
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
+img{
+  border:0;
+}
+
+.middleCardWrapper{
+  width:100vw;
+  height:100vh;
+
+  /* background image */
+  /*background: url("../res/wallpaper.jpg") no-repeat center center fixed;
+  background-size: cover;*/
+  background:rgb(32, 32, 32);
+
+  /* center the middleCard div */
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+  .middleCardWrapper .middleCard{
+    width:800px;
+    height:500px;
+    background:white;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    border-radius:5px;
+    overflow: hidden;
+    display:flex;
+    flex-flow:row nowrap;
+  }
+
+    .middleCardWrapper .middleCard aside{
+      flex: 0 1 auto;
+      height:100%;
+      width:250px;
+      display:flex;
+      flex-flow: column;
+      border-radius: 0 5px 5px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      background: #23374d;
+    }
+
+      .middleCardWrapper .middleCard aside .fieldGroupHeader{
+        flex: 0 1 auto;
+        padding: 30px 15px;
+      }
+
+        .middleCardWrapper .middleCard aside .fieldGroupHeader h1{
+          margin:0;
+          color:white;
+        }
+
+      .middleCardWrapper .middleCard aside .fieldGroupBody{
+        flex: 1 1 auto; /* flex grow, so it fills the remaining space */
+        background-color:#1089ff;
+        border-radius:5px;
+      }
+
+        .middleCardWrapper .middleCard aside .fieldGroupBody ul{
+          padding:5px;
+          list-style-type:none;
+          margin:0;
+        }
+
+          .middleCardWrapper .middleCard aside .fieldGroupBody ul li:not(:first-child){
+            margin-top:10px;
+          }
+        
+          .middleCardWrapper .middleCard aside .fieldGroupBody ul li{
+            padding:10px;
+            color:white;
+            border-radius:5px;
+            transition: box-shadow 0.5s;
+            display:flex;
+            flex-direction:row;
+          }
+        
+            .middleCardWrapper .middleCard aside .fieldGroupBody ul li .fieldIcon{
+              background-image: url("../res/unchecked.png");
+              background-size: cover;
+              background-repeat: no-repeat;
+              width: 30px;
+              height: 30px;
+              margin: 0;
+              padding: 0;
+              border-style: none;
+              border-radius:5px;
+              background-color:#1089ff;
+              transition: background-color 0.2s;
+            }
+          
+            .middleCardWrapper .middleCard aside .fieldGroupBody ul .selected .fieldIcon{
+              /*background-image: url("../res/minus.png");*/
+              background-color:#eeeeee;
+            }
+          
+            .middleCardWrapper .middleCard aside .fieldGroupBody ul .completed .fieldIcon{
+              background-image: url("../res/checked.png");
+            }
+          
+            .middleCardWrapper .middleCard aside .fieldGroupBody ul li .groupName{
+              padding-left:10px;
+              line-height:30px;
+            }
+          
+            .middleCardWrapper .middleCard aside .fieldGroupBody ul li:hover{
+              box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+              cursor:pointer;
+            }
+      .middleCardWrapper .middleCard .rightSide{
+        flex: 1 1 auto;
+        position:relative;
+      }    
+        .middleCardWrapper .middleCard .rightSide .screen{
+          opacity: 0;
+          position:absolute;
+          top:0;
+          left:0;
+          right:0;
+          bottom:0;
+          pointer-events: none;
+          transition:opacity 0.2s;
+        }
+
+        .middleCardWrapper .middleCard .rightSide .selected{
+          opacity: 100;
+          pointer-events: all;
+          transition: 0.2s opacity 0.2s;
+        }
+
+        .middleCardWrapper .middleCard .rightSide .greetingScreen{ 
+          height:100%; 
+          display:flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+          .middleCardWrapper .middleCard .rightSide .greetingScreen .greetingScreenInside{  
+            align-items: center;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+
+            .middleCardWrapper .middleCard .rightSide .greetingScreen .greetingScreenInside h1{  
+              margin:0;
+            }
+
+            .middleCardWrapper .middleCard .rightSide .greetingScreen .greetingScreenInside p{  
+              color:#a1a1a1;
+            }
+
+        .middleCardWrapper .middleCard .rightSide .formScreen, 
+        .middleCardWrapper .middleCard .rightSide .finishScreen{  
+          padding:50px;
+          height: 100%;
+          box-sizing: border-box;
+          overflow-y: auto;
+        }
+
+        .middleCardWrapper .middleCard .rightSide .formScreen::-webkit-scrollbar , .finishScreen::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        .middleCardWrapper .middleCard .rightSide .formScreen::-webkit-scrollbar-track , .finishScreen::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+
+        .middleCardWrapper .middleCard .rightSide .formScreen::-webkit-scrollbar-thumb , .finishScreen::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius:5px;
+        }
+
+        .middleCardWrapper .middleCard .rightSide .formScreen::-webkit-scrollbar-thumb:hover , .finishScreen::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+
+          .middleCardWrapper .middleCard .rightSide .formScreen .formHeader{  
+            /*text-align: center;*/
+          }
+
+          .middleCardWrapper .middleCard .rightSide .formScreen .formHeader h1{  
+            margin-top:0;
+          }
+
+          .middleCardWrapper .middleCard .rightSide .formScreen .formBody{  
+            width:100%;
+          }
+
+            .middleCardWrapper .middleCard .rightSide .formScreen .formBody .submitButtonWrapper input[type="submit"]{
+              margin-top:20px;
+              padding:10px 20px;
+              border:none;
+              background: #1089ff;
+              color:white;
+              border-radius:5px;
+            }
+
+            .middleCardWrapper .middleCard .rightSide .formScreen .formBody .submitButtonWrapper input[type="submit"]:hover{
+              cursor: pointer;
+            }
+
+            .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection{  
+              width:100%;
+              box-sizing: border-box;
+              padding:10px;
+              border-radius: 2px;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+              transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+              display:flex;
+            }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection:not(:first-child){
+                margin-top:20px;
+              }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection:focus-within{
+                box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+              }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection .inputIcon{
+                height:20px;
+                width:20px;
+                padding:5px;
+              }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection input{
+                margin:5px 5px 5px 20px;
+                width:100%;
+                border:none;
+              }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection input:focus{
+                outline: none;
+              }
+
+        .middleCardWrapper .middleCard .rightSide .finishScreen{  
+          padding:50px;
+        }
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenTitle{
+
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenTitle h1{
+            margin-top:0;
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody{
+
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper{
+            
+          }
+
+            .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section{
+              padding:10px;
+              border-radius: 2px;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+
+            .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section:not(:first-child){
+              margin-top:25px;
+            }
+
+              .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionHeader{
+                margin-top:0;
+                margin-bottom:10px;
+                text-align:center;
+              }
+
+              .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody{
+                
+              }
+
+                .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody .dataSection{
+                  display:flex;
+                  flex-direction: row;
+                  justify-content: space-around;
+                  padding:5px;
+                }
+
+                .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody .dataSection:not(:first-child){
+                  /*margin-top:10px;*/
+                }
+
+                .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody .dataSection:nth-of-type(2n+1){
+                  background: #d6d6d6;
+                  border-radius:3px;
+                }
+                  .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody .dataSection .key{
+                    width:50%;
+                    text-align:center;
+                    overflow-wrap: break-word;
+                  }
+
+                  .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody .dataSection .value{
+                    width:50%;
+                    text-align:center;
+                    overflow-wrap: break-word;
+                  }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataBottom{
+
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataBottom p{
+            color:#a1a1a1;
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataBottom button{
+            margin-top:10px;
+            padding:10px 20px;
+            border:none;
+            background: #1089ff;
+            color:white;
+            border-radius:5px;
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataBottom button:hover{
+            cursor: pointer;
+          }
+
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataBottom button[disabled],
+          .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataBottom button:disabled{
+            background:#a1a1a1;
+          }
+
+          
+
+.nextButtonWrapper{
+  display:flex;
+  background: #e5e5e5;
+  border-radius:5px;
+}
+  .nextButtonWrapper .submitButton{ 
+    padding:10px;
+    border:none;
+    background: #1089ff;
+    color:white;
+    border-radius:5px;
+  }
+  .nextButtonWrapper .rightArrowWrapper{
+    width:40px;
+    height:40px;
+    max-width:0;
+    overflow:hidden;
+    transition: max-width 0.5s;
+    position:relative;
+  }
+  .nextButtonWrapper:hover .rightArrowWrapper{
+    max-width:40px;
+  }
+  .nextButtonWrapper .rightArrowWrapper .rightArrow{ 
+    position:absolute;
+    height:30px;
+    width:30px;
+    padding:5px;
+    right:0;
+  }
+.nextButtonWrapper:hover, .submitButton{  
+  cursor: pointer;
+}
