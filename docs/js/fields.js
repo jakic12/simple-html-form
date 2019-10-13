@@ -2,7 +2,7 @@ const fieldGroups = [
   {
     id:`greet`,
     groupName:`Greeting`,
-    title:`Job application form`,
+    title:`Account registration form`,
     subtitle:`takes only 5min`,
     btnText:`advance`
   },

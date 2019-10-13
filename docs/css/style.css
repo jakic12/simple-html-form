@@ -19,9 +19,8 @@ img{
   height:100vh;
 
   /* background image */
-  /*background: url("../res/wallpaper.jpg") no-repeat center center fixed;
-  background-size: cover;*/
-  background:rgb(32, 32, 32);
+  background: url("../res/wallpaper.jpg") no-repeat center center fixed;
+  background-size: cover;
 
   /* center the middleCard div */
   display:flex;
@@ -60,6 +59,7 @@ img{
         .middleCardWrapper .middleCard aside .fieldGroupHeader h1{
           margin:0;
           color:white;
+          text-align:center;
         }
 
       .middleCardWrapper .middleCard aside .fieldGroupBody{
