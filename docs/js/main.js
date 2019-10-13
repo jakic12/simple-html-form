@@ -36,7 +36,6 @@ const applyCustomProps = (element, props) => {
 }
 
 const applyEventListener = (element, eventListener, callback) => {
-  console.log(element.className, callback)
   element.addEventListener(eventListener, callback);
   return element
 }
@@ -245,6 +244,7 @@ const formScreen = (formData, screenType) => {
 const finishScreen = (formData, screenType) => {
   const completedFieldGroups = fieldGroups.filter(e => e.data);
   const shouldBeCompleted = fieldGroups.filter(e => e.id !== `finish` && e.id !== `greet`)
+
   return createDomWithChildren(`div`, [
     createDomWithChild(`div`, createDomWithText(`h1`, formData.title), `finishScreenTitle`),
     createDomWithChildren(`div`, [
@@ -267,13 +267,18 @@ const finishScreen = (formData, screenType) => {
       createDomWithChildren(`div`, [
         createDomWithText(`p`, formData.subtitle),
         applyCustomProps(
-          createDomWithText(`button`, formData.btnText),{
+          applyEventListener(createDomWithText(`button`, formData.btnText), `click`, () => {
+            fieldGroups[getGroupIndex('finish')].completed = true;
+            refreshScreen();
+
+            const dataOut = {};
+            fieldGroups.filter(e => e.data).forEach(e => {
+              dataOut[e.id] = e.data
+            })
+            console.log(dataOut)
+          }),{
             disabled:completedFieldGroups.length != shouldBeCompleted.length,
-            onclick:() => {
-              console.log('working?')
-              fieldGroups[getGroupIndex('finish')].completed = true;
-              refreshScreen();
-            }
+            type:`button`
           })
       ], `formDataBottom`)
     ], `finishScreenBody`)
@@ -303,8 +308,13 @@ const displayForm = screenType => {
 
 const refreshFinishScreen = screenType => {
   const dom = document.getElementById(`finish_screen`);
-  if(dom)
-    dom.innerHTML = finishScreen(fieldGroups[getGroupIndex(`finish`)], screenType).innerHTML
+  if(dom){
+    dom.innerHTML = ``;
+    const newDom = finishScreen(fieldGroups[getGroupIndex(`finish`)], screenType);
+    Array.from(newDom.childNodes).forEach(e => {
+      dom.append(e);
+    })
+  }
 }
 
 const refreshScreen = screenType => {
