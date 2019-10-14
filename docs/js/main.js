@@ -111,10 +111,10 @@ const greetingScreen = (formData, screenType) => {
   const nextButton1 = nextButton(
     createDomWithText(`button`, formData.btnText),
     e => {
-      const formDataId = e.path.filter(elem => elem.id && elem.id.includes(`_screen`))[0].id.replace(`_screen`, ``)
-      const formDataIndex = getGroupIndex(formDataId);
-      fieldGroups[formDataIndex].completed = true;
-      setGroupSelectedIndex(formDataIndex+1);
+      //const formDataId = e.path.filter(elem => elem.id && elem.id.includes(`_screen`))[0].id.replace(`_screen`, ``)
+      fieldGroups[groupSelectedIndex].completed = true;
+      const formDataIndex = groupSelectedIndex+1;
+      setGroupSelectedIndex(formDataIndex);
       refreshScreen(screenType);
     }
   )
