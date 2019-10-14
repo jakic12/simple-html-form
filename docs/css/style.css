@@ -17,6 +17,7 @@ img{
 .middleCardWrapper{
   width:100vw;
   height:100vh;
+  overflow-x:hidden;
 
   /* background image */
   background: url("../res/wallpaper.jpg") no-repeat center center fixed;
@@ -38,6 +39,8 @@ img{
     overflow: hidden;
     display:flex;
     flex-flow:row nowrap;
+
+    transition: height 0.3s, width 0.3s;
   }
 
     .middleCardWrapper .middleCard aside{
@@ -49,6 +52,7 @@ img{
       border-radius: 0 5px 5px 0;
       box-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
       background: #23374d;
+      transition: width 0.3s;
     }
 
       .middleCardWrapper .middleCard aside .fieldGroupHeader{
@@ -133,6 +137,8 @@ img{
           pointer-events: none;
           transition:opacity 0.2s;
         }
+
+
 
         .middleCardWrapper .middleCard .rightSide .selected{
           opacity: 100;
@@ -283,6 +289,10 @@ img{
                 text-align:center;
               }
 
+              .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionHeader:hover{
+                cursor: pointer;
+              }
+
               .middleCardWrapper .middleCard .rightSide .finishScreen .finishScreenBody .formDataWrapper .section .sectionBody{
                 
               }
@@ -374,4 +384,20 @@ img{
   }
 .nextButtonWrapper:hover, .submitButton{  
   cursor: pointer;
+}
+
+@media only screen and (max-width: 800px) {
+  .middleCardWrapper .middleCard aside{
+    width:0;
+  }
+
+  .middleCardWrapper .middleCard{
+    height:100vh;
+    width:100vw;
+  }
+
+  /*.middleCardWrapper .middleCard .rightSide .screen{
+    position:unset;
+    opacity: 100% !important;
+  }*/
 }

@@ -4,7 +4,7 @@ const DESKTOP = 2;
 
 const fieldGroupDiv = document.getElementById("fieldGroups");
 const formScreenDiv = document.getElementById("formScreenDiv");
-const mobileWindowWidth = 700;
+const mobileWindowWidth = 800;
 var displayed = null;
 
 var groupSelected = fieldGroups[0].id;
@@ -79,6 +79,9 @@ const displayFormGroup = (screenType) => {
 
       fieldGroupDiv.appendChild(fieldGroupLi)
     })
+  }else{
+    if(fieldGroupDiv.childElementCount > 0)
+      fieldGroupDiv.innerHTML = ``
   }
 }
 
@@ -185,7 +188,10 @@ const finishScreen = (formData, screenType) => {
         completedFieldGroups.map(fieldGroupData => {
           if(fieldGroupData.id !== `finish` && fieldGroupData.id !== `greet`){
             return createDomWithChildren(`div`, [
-              createDomWithText(`h3`,fieldGroupData.groupName, `sectionHeader`),
+              applyEventListener(createDomWithText(`h3`,fieldGroupData.groupName, `sectionHeader`), `click`,  () => {
+                setGroupSelected(fieldGroupData.id);
+                refreshScreen(displayed);
+              }),
               document.createElement(`hr`),
               createDomWithChildren(`div`, fieldGroupData.data?Object.keys(fieldGroupData.data).map(fieldKey => 
                 createDomWithChildren(`div`, [
@@ -202,7 +208,7 @@ const finishScreen = (formData, screenType) => {
         applyCustomProps(
           applyEventListener(createDomWithText(`button`, formData.btnText), `click`, () => {
             fieldGroups[getGroupIndex('finish')].completed = true;
-            refreshScreen();
+            refreshScreen(displayed);
 
             const dataOut = {};
             fieldGroups.filter(e => e.data).forEach(e => {
@@ -223,7 +229,7 @@ const displayForm = screenType => {
   if(formScreenDiv.childElementCount > 0)
     formScreenDiv.innerHTML = ``
 
-  if(screenType == DESKTOP){
+  if(screenType == DESKTOP || true){
     fieldGroups.forEach(fieldGroupData => {
       switch(fieldGroupData.id){
         case `greet`:
