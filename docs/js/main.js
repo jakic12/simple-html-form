@@ -29,149 +29,6 @@ const setGroupSelectedIndex = index => {
   groupSelected = fieldGroups[index].id;
 }
 
-/* DOM HELPERS */
-const applyCustomProps = (element, props) => {
-  for(const key in props){
-    element[key] = props[key]
-  }
-  return element;
-}
-
-const applyEventListener = (element, eventListener, callback) => {
-  element.addEventListener(eventListener, callback);
-  return element
-}
-
-const createDomWithClass = (elementType, className, id) => {
-  const out = document.createElement(elementType);
-  if(className)
-    out.className = className;
-
-  if(id)
-    out.id = id;
-
-  return out;
-}
-
-const createDomWithText = (elementType, text, className, id) => {
-  const out = document.createElement(elementType);
-  if(className)
-    out.className = className;
-
-  if(id)
-    out.id = id;
-  
-  if(text)
-    out.innerText = text;
-
-  return out;
-}
-
-const createDomWithChild = (elementType, childElement, className, id) => {
-  const out = document.createElement(elementType);
-  if(className)
-    out.className = className;
-
-  if(id)
-    out.id = id;
-  
-  if(childElement)
-    out.appendChild(childElement);
-  
-  return out;
-}
-
-const createDomWithChildren = (elementType, childElements, className, id) => {
-  const out = document.createElement(elementType);
-  if(className)
-    out.className = className;
-
-  if(id)
-    out.id = id;
-
-  if(childElements)
-    childElements.forEach(child => {
-      if(child)
-        out.appendChild(child);
-    })
-  
-  return out;
-}
-/* DOM HELPERS */
-
-/* RESPOND.js */
-function* componentUuid(){
-  let i = 0;
-  while(true){
-    yield(`component_${i}`);
-  }
-}
-
-const cUuid1 = componentUuid();
-
-const div = (props, render, usedStateProps = []) => ({type:`div`, render, props, usedStateProps})
-const cutomVDom = (type, props, render, usedStateProps = []) => ({type, render, props, usedStateProps})
-const text = (render, usedStateProps = []) => ({type:`text`, render, usedStateProps})
-/**
- * 
- * @param {Object} domStruct parent VDom
- * @param {Object} initialState 
- */
-const Component = (
-  domStruct,
-  initialState = {},
-) =>{
-  let state = initialState;
-  let stateListeners = {}
-
-  const addStateListener = (prop, dom) => {
-    if(stateListeners[prop])
-      stateListeners[prop].push(dom)
-    else
-      stateListeners[prop] = [ dom ]
-  }
-
-  const removeStateListener = (prop, dom) => {
-    stateListeners[prop] = stateListeners[prop].filter(d => d != dom)
-  }
-
-  const renderDomStructure = (VDom) => {
-    let out;
-    if(VDom instanceof Array){
-      //renderDomStructure(VDom.render)
-    }
-
-    if(out.usedStateProps && out.usedStateProps.length > 0){
-      out.usedStateProps.forEach(prop => {
-        addStateListener(prop, out)
-      })
-    }
-  }
-
-  const setState = newState => {
-
-  }
-
-  
-  return renderDomStructure(domStruct)
-
-}
-/* RESPOND.js */
-
-if(false){
-  Component([
-    div({className:`testComponent1`},[
-      text("text"),
-      text(({ exampleText }) => exampleText, ["exampleText"]),
-      div({className:`testComponent2WithState`},
-        ({ exampleText }) => text(exampleText),["exampleText"]
-      )
-    ]
-    )
-  ], {exampleText:"testText"})
-}
-
-
 const refreshClassNames = () => {
   fieldGroups.forEach(fieldGroupData => {
     const fieldGroupDom = document.getElementById(fieldGroupData.id)
@@ -406,19 +263,45 @@ const refreshScreen = screenType => {
 }
 
 refreshScreen(mobileWindowWidth<window.innerWidth? DESKTOP : MOBILE);
-document.getElementById("testDiv").innerHTML = ``
-document.getElementById("testDiv").appendChild(
-  Component(
-    div({className:`testComponent1`},[
-      text("text"),
-      text(({ exampleText }) => exampleText, ["exampleText"]),
-      div({className:`testComponent2WithState`},
-        ({ exampleText }) => text(exampleText),["exampleText"]
-      )
-    ]
-  ), {exampleText:"testText"})
-)
 
 window.addEventListener('resize', e => {
   refreshScreen(mobileWindowWidth<window.innerWidth? DESKTOP : MOBILE);
 })
+
+const testDiv = document.getElementById(`respondTest_form`)
+let cmp = new Component(cmpSetState => 
+  div({ class:`todoList` },
+    [
+      customVDom(`ul`, {}, ({ todos }) => 
+        todos.map((todo, i) => 
+          customVDom(`li`, { style:{textDecoration:todo.done?`line-through`:`none`} }, [
+            text(todo.name),
+            customVDom(`input`, {type:`checkbox`, checked:todo.done, disabled:todo.done, onchange:e => {
+              const todosChange = todos
+              todosChange[i].done = e.target.checked
+              cmpSetState({ todos:todosChange })
+              setTimeout(() => {
+                cmpSetState({ todos:todos.filter(t => t != todo) })
+              }, 1000);
+            }})
+          ])
+        )
+      , [`todos`]),
+      div({}, [
+        text(`add new todo: `),
+        customVDom(`form`, {onsubmit:e => {
+          e.preventDefault()
+        }}, ({ newTodo }) => [
+          customVDom(`input`, { type: `text`, value:newTodo, onchange:e => {
+            cmpSetState({ newTodo: e.target.value })
+          }}),
+          customVDom(`input`, { type: `submit` , onclick:() => {
+            cmpSetState(({ newTodo, todos }) => ({ todos:todos.concat({ name:newTodo }), newTodo:"" }))
+          }})
+        ],[`newTodo`])
+      ])
+    ]
+  ),
+  {todos:[{name:`drink fluid`, done:false}], newTodo:""},
+  testDiv
+)
