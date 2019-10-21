@@ -139,9 +139,16 @@ const formScreen = (formData, screenType) => {
           applyCustomProps(createDomWithClass(`img`, `inputIcon`), {
             src:field.iconSrc || `res/qmark.png`
           }),
-          applyCustomProps(createDomWithClass(`input`, null, `${formData.id}_${field.fieldName}`), {
+          field.inputType? applyCustomProps(createDomWithClass(`input`, null, `${formData.id}_${field.fieldName}`), {
             name:field.fieldName,
             type:field.inputType,
+            required:field.required,
+            placeholder:field.placeholder || ``,
+            ...(field.props)
+          }) : applyCustomProps(createDomWithChildren(field.tagType, 
+            (field.children && field.children.map(child => applyCustomProps(createDomWithText(child.tagType, child.text), child.props))) || []
+          , `${formData.id}_${field.fieldName}`), {
+            name:field.fieldName,
             required:field.required,
             placeholder:field.placeholder || ``,
             ...(field.props)

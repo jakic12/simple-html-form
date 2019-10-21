@@ -14,6 +14,18 @@ img{
   border:0;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("../res/dropdown.png") right / 20px no-repeat #fff;
+  padding-right: 20px;
+}
+
+select:hover{
+  cursor: pointer;
+}
+
 .middleCardWrapper{
   width:100vw;
   height:100vh;
@@ -249,6 +261,16 @@ img{
                 margin:5px 5px 5px 20px;
                 width:100%;
                 border:none;
+              }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection select{
+                margin:5px 5px 5px 20px;
+                width:100%;
+                border:none;
+              }
+
+              .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection select:focus{
+                outline:none;
               }
 
               .middleCardWrapper .middleCard .rightSide .formScreen .formBody .inputSection input:focus{
