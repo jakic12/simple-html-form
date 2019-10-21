@@ -52,7 +52,7 @@ select:hover{
     display:flex;
     flex-flow:row nowrap;
 
-    transition: height 0.3s, width 0.3s;
+    /*transition: height 0.3s, width 0.3s;*/
   }
 
     .middleCardWrapper .middleCard aside{
